@@ -7,18 +7,25 @@ import cartItems from "./cart-items";
 // redux stuff
 import {createStore} from "redux"
 
-const reducer = () => {
-  console.log("Reducer Working")
+const initialStore = {
+  count : 0,
+  name : "Elijah"
 }
 
-const store = createStore(reducer)
+const reducer = (state, action) => {
+  console.log({state, action})
+  return state
+}
+
+const store = createStore(reducer, initialStore)
+console.log(store.getState())
 
 function App() {
   // cart setup
 
   return (
     <main>
-      <Navbar />
+      <Navbar cart = {store.getState} />
       <CartContainer cart={cartItems} />
     </main>
   );

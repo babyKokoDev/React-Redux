@@ -1,5 +1,6 @@
 import React from "react";
-const Navbar = () => {
+const Navbar = ({cart}) => {
+  const cart = 
   return (
     <nav>
       <div className="nav-center">
