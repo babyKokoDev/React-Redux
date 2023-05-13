@@ -1,7 +1,8 @@
 import React from "react";
 import CartItem from "./CartItem";
 import { connect } from "react-redux";
-const CartContainer = ({ cart = [], total}) => {
+import { CLEAR_CART } from "../action";
+const CartContainer = ({ cart = [], total, clear}) => {
   if (cart.length === 0) {
     return (
       <section className="cart">
@@ -33,7 +34,7 @@ const CartContainer = ({ cart = [], total}) => {
             total <span>${total}</span>
           </h4>
         </div>
-        <button className="btn clear-btn">clear cart</button>
+        <button onClick={()=>clear()} className="btn clear-btn">clear cart</button>
       </footer>
     </section>
   );
@@ -46,4 +47,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(CartContainer);
+const dispatchStateToProps = (dispatch) => {
+  return {
+    clear : ()=>{dispatch({type : CLEAR_CART})}
+  }
+} 
+
+export default connect(mapStateToProps, dispatchStateToProps)(CartContainer);
