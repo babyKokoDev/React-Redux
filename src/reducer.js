@@ -1,4 +1,4 @@
-import { CLEAR_CART, DECREASE, INCREASE, REMOVE } from "./action";
+import { CLEAR_CART, DECREASE, INCREASE, REMOVE, GET_TOTALS } from "./action";
 
 const reducer = (state, action) => {
 
@@ -41,6 +41,12 @@ const reducer = (state, action) => {
         const itemLeft = cart.filter((item) => item.id !== action.payload.id)
         return { ...state, cart: itemLeft }
     }
+
+   
+    if (action.type === GET_TOTALS){
+        console.log("Totals in action")
+    }
+
     return state
 
 }
