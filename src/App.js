@@ -10,13 +10,9 @@ import { DECREASE, INCREASE } from "./action";
 import reducer from "./reducer";
 import { Provider } from "react-redux";
 
-const initialStore = {
-    cart : cartItems,
-    total : 105,
-    amount : 0
-}
 
-const store = createStore(reducer, initialStore)
+
+const store = createStore(reducer)
 
 function App() {
   // cart setup

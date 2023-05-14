@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { DECREASE, INCREASE, REMOVE} from "../action";
+import { DECREASE, INCREASE, REMOVE, TOGGLE_AMOUNT, removeItem} from "../action";
 
-const CartItem = ({ img, title, price, amount, remove, decrease, increase}) => {
+const CartItem = ({ img, title, price, amount, remove, decrease, increase, toggle}) => {
   return (
     <div className="cart-item">
       <img src={img} alt={title} />
@@ -14,7 +14,7 @@ const CartItem = ({ img, title, price, amount, remove, decrease, increase}) => {
       </div>
       <div>
         {/* increase amount */}
-        <button onClick={()=>increase()} className="amount-btn">
+        <button onClick={()=>toggle("inc")} className="amount-btn">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z" />
           </svg>
@@ -22,7 +22,15 @@ const CartItem = ({ img, title, price, amount, remove, decrease, increase}) => {
         {/* amount */}
         <p className="amount">{amount}</p>
         {/* decrease amount */}
-        <button onClick={()=>decrease()} className="amount-btn">
+        <button onClick={()=>
+         {
+          if (amount === 1){
+            return remove()
+          } else {
+            return toggle("dec")
+          }
+         } 
+          } className="amount-btn">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
           </svg>
@@ -35,9 +43,10 @@ const CartItem = ({ img, title, price, amount, remove, decrease, increase}) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const { id, amount } = ownProps
   return {
-    remove : () => {dispatch({type : REMOVE, payload : {id}})},
+    remove : () => {dispatch(removeItem(id))},
     increase : () => {dispatch({type : INCREASE, payload : {id}})},
-    decrease : () => {dispatch({type : DECREASE, payload : {id, amount}})}
+    decrease : () => {dispatch({type : DECREASE, payload : {id, amount}})},
+    toggle : (toogler) => {dispatch({type : TOGGLE_AMOUNT, payload : {id, toogler}})} 
   }
 }
 
