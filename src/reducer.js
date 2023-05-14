@@ -44,7 +44,15 @@ const reducer = (state, action) => {
 
    
     if (action.type === GET_TOTALS){
-        console.log("Totals in action")
+        let newObject = state.cart.reduce((Total, cart)=>{
+            Total.amount += cart.amount
+            let totalPrice = cart.amount * cart.price
+            Total.total += totalPrice
+           return Total
+        }, {total : 0, amount : 0})  
+        let {total, amount} = newObject
+        total = parseFloat(total.toFixed(2))
+        return {...state, total:total, amount:amount}
     }
 
     return state
